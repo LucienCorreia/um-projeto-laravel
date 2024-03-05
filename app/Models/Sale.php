@@ -11,6 +11,11 @@ class Sale extends Model
 
     public function products()
     {
-        return $this->belongsToMany(Product::class, 'sale_product')->using(SaleProduct::class);
+        return $this->belongsToMany(Product::class, 'sale_product')->using(SaleProduct::class)->withPivot(['quantity', 'price', 'total', 'id', 'created_at', 'updated_at']);
+    }
+
+    public function productsPivoted()
+    {
+        return $this->belongsTo(SaleProduct::class, 'id', 'sale_id');
     }
 }

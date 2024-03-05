@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
+            $table->boolean('cancelled')->default(0);
             $table->timestamps();
         });
     }

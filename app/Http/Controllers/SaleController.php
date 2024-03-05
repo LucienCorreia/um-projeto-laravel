@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreSaleRequest;
 use App\Http\Requests\UpdateSaleRequest;
+use App\Http\Resources\SaleResource;
 use App\Models\Sale;
 
 class SaleController extends Controller
@@ -13,7 +14,9 @@ class SaleController extends Controller
      */
     public function index()
     {
-        //
+        $sales = Sale::with('products')->paginate();
+
+        return SaleResource::collection($sales);
     }
 
     /**
