@@ -21,5 +21,6 @@ Route::group(['prefix' => 'v1'], function () {
 
     Route::group(['prefix' => 'sales'], function () {
         Route::get('/', [\App\Http\Controllers\SaleController::class, 'index']);
+        Route::get('/{sale}', [\App\Http\Controllers\SaleController::class, 'show']);
     });
 });

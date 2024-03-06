@@ -20,14 +20,6 @@ class SaleController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(StoreSaleRequest $request)
@@ -40,15 +32,9 @@ class SaleController extends Controller
      */
     public function show(Sale $sale)
     {
-        //
-    }
+        $sale->load('products');
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Sale $sale)
-    {
-        //
+        return new SaleResource($sale);
     }
 
     /**
