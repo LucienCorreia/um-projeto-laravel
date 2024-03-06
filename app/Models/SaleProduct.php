@@ -9,7 +9,7 @@ class SaleProduct extends Pivot
 {
     use HasFactory;
 
-    public $fillable = [
+    protected $fillable = [
         'price',
         'quantity',
         'total',

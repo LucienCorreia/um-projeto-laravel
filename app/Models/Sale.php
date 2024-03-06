@@ -9,6 +9,10 @@ class Sale extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'cancelled',
+    ];
+
     public function products()
     {
         return $this->belongsToMany(Product::class, 'sale_product')->using(SaleProduct::class)->withPivot(['quantity', 'price', 'total', 'id', 'created_at', 'updated_at']);

@@ -52,4 +52,14 @@ class SaleController extends Controller
     {
         //
     }
+
+    /**
+     * Cancel the specified resource from storage.
+     */
+    public function cancel(Sale $sale)
+    {
+        $sale->update(['cancelled' => true]);
+
+        return new SaleResource($sale);
+    }
 }
