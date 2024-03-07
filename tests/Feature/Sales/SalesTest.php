@@ -64,6 +64,25 @@ class SalesTest extends TestCase
     }
 
     /**
+     * Create new sale with product not exist
+     */
+    public function testCreateSaleWithProductNotExist(): void
+    {
+        $response = $this->post('/api/v1/sales', [
+            'products' => [
+                [
+                    'id' => 0,
+                    'quantity' => 1,
+                ],
+            ],
+        ], [
+            'Accept' => 'application/json',
+        ]);
+
+        $response->assertStatus(422);
+    }
+
+    /**
      * Add products to sale
      */
     public function testAddProductsToSale(): void
@@ -85,6 +104,42 @@ class SalesTest extends TestCase
     }
 
     /**
+     * Add products to sale not found
+     */
+    public function testAddProductsToSaleNotFound(): void
+    {
+        $response = $this->post('/api/v1/sales/0/add-products', [
+            'products' => [
+                [
+                    'id' => 1,
+                    'quantity' => 1,
+                ],
+            ],
+        ]);
+
+        $response->assertStatus(404);
+    }
+
+    /**
+     * Add product not exist to sale
+     */
+    public function testAddProductNotExistToSale(): void
+    {
+        $response = $this->post('/api/v1/sales/1/add-products', [
+            'products' => [
+                [
+                    'id' => 0,
+                    'quantity' => 1,
+                ],
+            ],
+        ],  [
+            'Accept' => 'application/json',
+        ]);
+
+        $response->assertStatus(422);
+    }
+
+    /**
      * Cancel sale
      */
     public function testCancelSale(): void
@@ -96,5 +151,15 @@ class SalesTest extends TestCase
         $response->assertJsonFragment(['id' => 1]);
 
         $this->assertDatabaseHas('sales', ['id' => 1, 'cancelled' => 1]);
+    }
+
+    /**
+     * Cancel sale not found
+     */
+    public function testCancelSaleNotFound(): void
+    {
+        $response = $this->json('PATCH', '/api/v1/sales/0/cancel');
+
+        $response->assertStatus(404);
     }
 }
