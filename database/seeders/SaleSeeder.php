@@ -13,10 +13,10 @@ class SaleSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\Sale::factory(10)->create()->each(function ($sale) {
+        \App\Models\Sale::factory(100)->create()->each(function ($sale) {
                 $products = \App\Models\Product::inRandomOrder()->limit(rand(1, 10))->get();
                 foreach($products as $product) {
-                        $quantity = rand(1, 10);
+                        $quantity = rand(1, 100);
                         $price = $product->price;
                         $total = $product->price * $quantity;
 
