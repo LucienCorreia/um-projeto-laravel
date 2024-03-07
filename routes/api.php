@@ -24,5 +24,6 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('/{sale}', [\App\Http\Controllers\SaleController::class, 'show']);
         Route::post('/', [\App\Http\Controllers\SaleController::class, 'store']);
         Route::patch('/{sale}/cancel', [\App\Http\Controllers\SaleController::class, 'cancel']);
+        Route::post('/{sale}/add-products', [\App\Http\Controllers\SaleController::class, 'addProducts']);
     });
 });

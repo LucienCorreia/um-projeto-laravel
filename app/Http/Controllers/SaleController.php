@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Repositories\SaleRepository;
+use App\Http\Requests\AddProductsRequest;
 use App\Http\Requests\StoreSaleRequest;
 use App\Http\Requests\UpdateSaleRequest;
+use App\Http\Resources\SaleProductResource;
 use App\Http\Resources\SaleResource;
 use App\Models\Sale;
 
@@ -41,11 +43,12 @@ class SaleController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Add products to the specified resource in storage.
      */
-    public function destroy(Sale $sale)
+
+    public function addProducts(Sale $sale, AddProductsRequest $request, SaleRepository $saleRepository)
     {
-        //
+        return new SaleResource($saleRepository->addProducts($sale, $request->all()));
     }
 
     /**
