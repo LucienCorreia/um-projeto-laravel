@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Repositories\SaleRepository;
 use App\Http\Requests\StoreSaleRequest;
 use App\Http\Requests\UpdateSaleRequest;
 use App\Http\Resources\SaleResource;
@@ -22,9 +23,11 @@ class SaleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreSaleRequest $request)
+    public function store(StoreSaleRequest $request, SaleRepository $saleRepository)
     {
-        //
+        $sale = $saleRepository->save($request->all());
+
+        return new SaleResource($sale);
     }
 
     /**
@@ -35,14 +38,6 @@ class SaleController extends Controller
         $sale->load('products');
 
         return new SaleResource($sale);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateSaleRequest $request, Sale $sale)
-    {
-        //
     }
 
     /**
