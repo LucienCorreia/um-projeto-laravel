@@ -1,0 +1,148 @@
+openapi: 3.0.0
+info:
+  version: 1.0.2
+  title: Swagger Adoorei
+  description: Teste backend da Adoorei Checkout
+  contact: {
+
+  }
+paths:
+  /products:
+    get:
+      summary: List products
+      description: List all products with pagination
+      operationId: "1"
+      tags: [products]
+      responses:
+        "200": {
+          description: success
+        }
+  /sales:
+    get:
+      summary: List sales
+      description: List all sales with pagination
+      operationId: "2"
+      tags: [sales]
+      responses:
+        "200": {
+          description: success
+        }
+    post:
+      summary: Create Sale
+      description: Create sale with products
+      operationId: "3"
+      tags: [sales]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                products:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      quantity:
+                        type: integer
+                        example: 2
+      responses:
+        "201": {
+          description: success
+        }
+        "422": {
+          description: validation error
+        }
+  /sales/{id}:
+    get:
+      summary: View Sale
+      description: View sale datails
+      operationId: "4"
+      tags: [sales]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: sale id
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200": {
+          description: success
+        }
+        "404": {
+          description: not found
+        }
+  /sales/{id}/cancel:
+    patch:
+      summary: Cancel a sale
+      description: Cancel a sale
+      operationId: "5"
+      tags: [sales]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: sale id
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200": {
+          description: success
+        }
+        "404": {
+          description: not found
+        }
+  /sales/{id}/add-products:
+    post:
+      summary: Add products on sale
+      description: Add more products on sale
+      operationId: "6"
+      tags: [sales]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: sale id
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                products:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      quantity:
+                        type: integer
+                        example: 2
+      responses:
+        "200": {
+          description: success
+        }
+        "404": {
+          description: not found
+        }
+servers:
+  - url: http://localhost:8000/api/v1
+tags: [
+  {
+    name: products
+  },
+  {
+    name: sales
+  }
+]
